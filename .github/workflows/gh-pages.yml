@@ -3,11 +3,16 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Cambia con "master" se il tuo branch si chiama così
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -20,7 +25,6 @@ jobs:
                       /opt/ghc \
                       /opt/hostedtoolcache
 
-      # Modifica questa parte per costruire il tuo sito
       - name: Build your site
         run: |
           mkdir public
