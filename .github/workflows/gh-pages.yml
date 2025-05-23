@@ -11,24 +11,16 @@ jobs:
 
     permissions:
       contents: write
-      pages: write
-      id-token: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Free up disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet \
-                      /usr/local/lib/android \
-                      /opt/ghc \
-                      /opt/hostedtoolcache
-
-      - name: Build your site
+      - name: Copy all files to public/
         run: |
           mkdir public
-          echo "<h1>Sito Online</h1>" > public/index.html
+          cp -r * public/
+          cp -r .[^.]* public/ || true  # Copia anche i file nascosti, tipo .nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
